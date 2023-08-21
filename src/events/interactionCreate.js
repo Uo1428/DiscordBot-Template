@@ -76,22 +76,7 @@ module.exports = {
             ]
           })
         }
-        // ==============================< Permissions checking >============================= \\
-        if (slashCommand.userPerms || slashCommand.botPerms) {
-          if (!interaction.memberPermissions.has(PermissionsBitField.resolve(slashCommand.userPerms || []))) {
-            const userPerms = new EmbedBuilder()
-              .setDescription(`${emojis.MESSAGE.x} ${interaction.user}, You don't have ${parsePermissions(slashCommand.userPerms)} to use this command!`)
-              .setColor(client.embed.wrongcolor)
-            return interaction.reply({ ephemeral: true, embeds: [userPerms] })
-          }
-          if (!interaction.guild.members.cache.get(client.user.id).permissions.has(PermissionsBitField.resolve(slashCommand.botPerms || []))) {
-            const botPerms = new EmbedBuilder()
-              .setDescription(`${emojis.MESSAGE.x} ${interaction.user}, I don't have ${parsePermissions(slashCommand.botPerms)} to use this command!`)
-              .setColor(client.embed.wrongcolor)
-            return interaction.reply({ ephemeral: true, embeds: [botPerms] })
-          }
 
-        }
         // ==============================< CoolDown checking >============================= \\
         if (slashCommand.cooldown && slash(interaction, slashCommand)) {
           return interaction.reply({
@@ -111,11 +96,11 @@ module.exports = {
           embeds: [new EmbedBuilder()
             .setColor(client.embed.color)
             .setAuthor({ name: "Slash Command", iconURL: `https://cdn.discordapp.com/emojis/942758826904551464.webp?size=28&quality=lossless` })
-            .setThumbnail(interaction.guild.iconURL({ dynamic: true }))
+            .setThumbnail(interaction.user.displayAvatarURL({ dynamic: true }))
             .addFields([
               { name: "**Author**", value: `\`\`\`yml\n${interaction.user.tag} [${interaction.user.id}]\`\`\`` },
-              { name: "**Command Name**", value: `\`\`\`yml\n${slashCommand.name}\`\`\`` },
-              { name: `**Guild**`, value: `\`\`\`yml\n${interaction.guild.name} [${interaction.guild.id}]\`\`\`` }
+              { name: "**Command Name**", value: `\`\`\`yml\n${slashCommand.data.name}\`\`\`` },
+              // { name: `**Guild**`, value: `\`\`\`yml\n${interaction.guild.name} [${interaction.guild.id}]\`\`\`` }
             ])
           ]
         });

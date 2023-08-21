@@ -1,20 +1,10 @@
-const { ApplicationCommandType, EmbedBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const os = require('os');
 require('ms');
 module.exports = {
-  name: "ping",
-  description: "Check bot's ping.",
-  usage: "",
-  category: "info",
-  userPerms: [""],
-  botPerms: [""],
-  cooldown: 10,
-  guildOnly: false,
-  ownerOnly: false,
-  toggleOff: false,
-  nsfwOnly: false,
-  maintenance: false,
-  type: ApplicationCommandType.ChatInput,
+  data: new SlashCommandBuilder()
+      .setName('ping')
+      .setDescription('pong 🏓'),
   run: async (client, interaction) => {
     try {
       let days = Math.floor(client.uptime / 86400000)

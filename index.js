@@ -1,4 +1,5 @@
 const { Client, GatewayIntentBits, Partials, Collection } = require('discord.js');
+require("dotenv").config()
 require(`colors`)
 const client = new Client({
   allowedMentions: {
