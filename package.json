@@ -1,11 +1,12 @@
 {
   "name": "uo1428",
   "version": "1.0.0",
-  "description": "Discord.js v14 Command-Handler. Commands, Events, Permissions and Cooldown Handlers for Discord.js v14 bot - coded by Uo#1428",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "type": "module",
   "keywords": [],
   "author": "uo1428",
   "devDependencies": {
@@ -14,6 +15,7 @@
   "dependencies": {
     "@discordjs/rest": "^0.4.0-dev.1648166871.cedd053",
     "ascii-table": "^0.0.9",
+    "axios": "^1.5.1",
     "box-console": "^2.0.0",
     "colors": "^1.4.0",
     "discord-api-types": "^0.30.0",
@@ -27,6 +29,6 @@
   },
   "repository": {
     "type": "discord",
-    "url": "https://discord.gg/pXRT2FusPb"
+    "url": "https://discord.gg/uoaio"
   }
 }

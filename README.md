@@ -1,7 +1,7 @@
 <h1 align="center">
    Discord.js v14 Command-Handlers
 </h1>
-<h4 align="center">Commands, Events, Permissions and Cooldown Handlers for Discord.js v14 bot ~ Made by Uo#0331</h4>
+<h4 align="center">Commands, Events, Permissions and Cooldown Handlers for Discord.js v14 bot ~ Made by Uo</h4>
 
 # Features
 - Commands Handler (toggleOff, maintenance, ownerOnly, guildOnly, aliases, permissions.....)

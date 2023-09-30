@@ -1,9 +1,0 @@
-{"error":".zip archives do not support non-regular files","level":"error","msg":"unable to write file node_modules/.bin/acorn","time":"2023-01-30T12:32:15Z"}
-{"error":".zip archives do not support non-regular files","level":"error","msg":"unable to write file node_modules/.bin/eslint","time":"2023-01-30T12:32:15Z"}
-{"error":".zip archives do not support non-regular files","level":"error","msg":"unable to write file node_modules/.bin/js-yaml","time":"2023-01-30T12:32:15Z"}
-{"error":".zip archives do not support non-regular files","level":"error","msg":"unable to write file node_modules/.bin/mime","time":"2023-01-30T12:32:15Z"}
-{"error":".zip archives do not support non-regular files","level":"error","msg":"unable to write file node_modules/.bin/node","time":"2023-01-30T12:32:15Z"}
-{"error":".zip archives do not support non-regular files","level":"error","msg":"unable to write file node_modules/.bin/node-which","time":"2023-01-30T12:32:15Z"}
-{"error":".zip archives do not support non-regular files","level":"error","msg":"unable to write file node_modules/.bin/rimraf","time":"2023-01-30T12:32:15Z"}
-{"error":".zip archives do not support non-regular files","level":"error","msg":"unable to write file node_modules/.bin/tsc","time":"2023-01-30T12:32:15Z"}
-{"error":".zip archives do not support non-regular files","level":"error","msg":"unable to write file node_modules/.bin/tsserver","time":"2023-01-30T12:32:15Z"}

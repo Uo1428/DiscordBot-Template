@@ -1,30 +1,38 @@
-const { Client, GatewayIntentBits, Partials, Collection } = require('discord.js');
-require("dotenv").config()
-require(`colors`)
-const client = new Client({
-  allowedMentions: {
-    parse: ["roles", "users", "everyone"],
-    repliedUser: false,
-  },
-  intents: [
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.GuildPresences,
-    GatewayIntentBits.GuildMessageReactions,
-    GatewayIntentBits.DirectMessages,
-    GatewayIntentBits.MessageContent
-  ],
-  partials: [Partials.Channel, Partials.Message, Partials.User, Partials.GuildMember, Partials.Reaction]
-});
+/**
+* @author uo1428
+* @support .gg/uoaio
+* @Donate patreon.com/uoaio
+* @Note Dont take any type credit 
+*/
+import dotenv from 'dotenv';
+dotenv.config();
+import colors from 'colors'
+import boxConsole from 'box-console';
+import Client from './src/client.mjs';
+import antiCrash from './src/utils/antiCrash.mjs';
+import config from './Assets/Config/config.mjs';
+import embed from './Assets/Config/embed.mjs';
+import emotes from './Assets/Config/emotes.mjs';
+
+let aio = `Welcome to ${'Console'.blue.bold} by ${'ALL IN ONE | Development'.red}`;
+let aio_server = `Support:- ${`https://discord.gg/uoaio`.brightGreen}`
+let Uo = `Coded By ${`@uoaio`.brightCyan.bold}`;
+console.clear()
+boxConsole([aio, aio_server, Uo]);
 
 
-[`variables`, `extraEvents`, `checker`, `mongo_db`, `server`, 'slashCommand', 'events', `antiCrash`].forEach((handler) => {
-  const file = require(`./src/handlers/${handler}`)
-  if (file.execute) file.execute(client);
-  else file(client);
-});
+const client = new Client()
 
-client.login(client.config.TOKEN).catch((error) => { console.log((error.message).bold.red) });
+client.start(config, embed, emotes).then(async c => {
+  try{
 
+    client.loadEvents();
+    client.loadCommands()
+  }catch (e) {
+    console.log(e.message)
 
-module.exports = client;
+  }
+
+}).catch(e => console.log(e.message))
+
+antiCrash()

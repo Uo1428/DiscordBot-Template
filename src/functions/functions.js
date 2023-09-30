@@ -1,8 +1,8 @@
-const permissions = require(`${process.cwd()}/src/validator/permissions`);
-require("colors")
+import permissions from '../utils/permissions.mjs';
 
-module.exports.parsePermissions = parsePermissions;
-
+export {
+  parsePermissions
+} 
 
 // parsePermissions
 function parsePermissions(perms) {
