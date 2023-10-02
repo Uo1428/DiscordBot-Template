@@ -33,6 +33,7 @@ class Bot extends Client {
         this.config = config;
         this.embed = embed;
         this.emotes = emotes;
+        this.fatchedCommands = [];
         this.Embed = (footer = true) => {
             let embed = new EmbedBuilder();
             if (!embed.color) embed.setColor(this.embed.color);
@@ -50,19 +51,19 @@ class Bot extends Client {
 
         if (!config.CLIENT_ID) this.config.CLIENT_ID = this.application.id;
 
-        if(config.MONGO_DB){       
-            mongoose.set('strictQuery', true);
+        if (config.MONGO_DB) {
 
-        mongoose.connect(config.MONGO_DB, {
-            autoIndex: false,
-            maxPoolSize: 10,
-            serverSelectionTimeoutMS: 5000,
-            socketTimeoutMS: 45000,
-            family: 4,
-        })
-        .then(() => logger("Connected to MongoDB".bold))
-        .catch((err) => console.error("MongoDB ❌\n", err));
-    }
+            mongoose.set('strictQuery', true);
+            mongoose.connect(config.MONGO_DB, {
+                autoIndex: false,
+                maxPoolSize: 10,
+                serverSelectionTimeoutMS: 5000,
+                socketTimeoutMS: 45000,
+                family: 4,
+            })
+                .then(() => logger("Connected to MongoDB".bold))
+                .catch((err) => console.error("MongoDB ❌\n", err));
+        }
     }
 
     async loadEvents() {
@@ -87,23 +88,24 @@ class Bot extends Client {
         const rest = new REST({ version: '9' }).setToken(TOKEN);
 
         let slashCommands = [];
-
-        await fs.readdir("./Commands/Slash").then(async i => {
-            i.forEach(async dir => {
-                await fs.readdir(`./Commands/Slash/${dir}/`).then(async files => {
-                    files.filter(file => file.endsWith('.mjs'));
-                    for (const file of files) {
-                        const { default: slashCommand } = await import("../Commands/Slash/" + dir + "/" + file);
-                        if (slashCommand.ignore) return;
-                        slashCommands.push(slashCommand.data);
-                        if (slashCommand.data.name) this.slashCommands.set(slashCommand.data.name, slashCommand);
-                        else throw `Command Error: ${slashCommand.name || file.split('.mjs')[0] || "Missing Name"} - ${this.user.username}`
-                    }
+        const loadSlash = () => new Promise(async (resolve, reject) => {
+            await fs.readdir("./Commands/Slash").then(async i => {
+                i.forEach(async dir => {
+                    await fs.readdir(`./Commands/Slash/${dir}/`).then(async files => {
+                        files.filter(file => file.endsWith('.mjs'));
+                        for (const file of files) {
+                            const { default: slashCommand } = await import("../Commands/Slash/" + dir + "/" + file);
+                            if (slashCommand.ignore) return;
+                            slashCommands.push(slashCommand.data);
+                            if (slashCommand.data.name) this.slashCommands.set(slashCommand.data.name, slashCommand);
+                            else throw `Command Error: ${slashCommand.name || file.split('.mjs')[0] || "Missing Name"} - ${this.user.username}`
+                        }
+                    })
                 })
-            })
-        });
+            });
+            resolve(slashCommands)
+        })
 
-        this.fatchedCommands = await this.application.commands.fetch();
 
         // ======== Message Commands
 
@@ -136,11 +138,14 @@ class Bot extends Client {
 
         });
 
-        await rest.put(
-            Routes.applicationCommands(CLIENT_ID), {
-            body: slashCommands
-        }).then(() => logger(`Loaded Slash Commands for ${this.user.username}`.bold));
-        logger(`Loaded Prefix Commands for ${this.user.username}`.bold)
+        await loadSlash().then(async (i) => {
+            await rest.put(
+                Routes.applicationCommands(CLIENT_ID), {
+                body: i
+            }).then(() => logger(`Loaded Slash Commands for ${this.user.username}`.bold));
+            this.fatchedCommands = await this.application.commands.fetch();
+            logger(`Loaded Prefix Commands for ${this.user.username}`.bold)
+        })
 
     }
 

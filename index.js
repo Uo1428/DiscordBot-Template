@@ -24,14 +24,9 @@ boxConsole([aio, aio_server, Uo]);
 const client = new Client()
 
 client.start(config, embed, emotes).then(async c => {
-  try{
 
-    client.loadEvents();
-    client.loadCommands()
-  }catch (e) {
-    console.log(e.message)
-
-  }
+  client.loadEvents();
+  client.loadCommands()
 
 }).catch(e => console.log(e.message))
 
