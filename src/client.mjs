@@ -129,13 +129,11 @@ class Bot extends Client {
                             } else this.commands.set(prefixCommand.name, prefixCommand);
                         } else throw `Prefix Command Error: ${prefixCommand.name || file.split('.mjs')[0] || "Missing Name"} - ${this.user.username}`
                         if (prefixCommand.aliases && Array.isArray(prefixCommand.aliases)) prefixCommand.aliases.forEach(messageCommandAlias => {
-
                             this.aliases.set(prefixCommand, prefixCommand.name);
                         });
                     }
                 })
             })
-
         });
 
         await loadSlash().then(async (i) => {

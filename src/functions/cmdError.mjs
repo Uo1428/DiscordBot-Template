@@ -66,11 +66,11 @@ function msg(message, error) {
     .setColor(client.embed.wrongcolor)
     .setAuthor({ name: `An error has occured! Try again later!`, url: "https://youtube.com/@uoaio" })
 
-  if (message.author.id === client.user.id) message.edit({
-    embeds: [embed],
-    content: "", files: [], components: []
-  });
-  else message.reply({
-    embeds: [embed]
-  })
+  // if (message.author.id === client.user.id) message.edit({
+  //   embeds: [embed],
+  //   content: "", files: [], components: []
+  // });
+  // else message.reply({
+  //   embeds: [embed]
+  // })
 }
