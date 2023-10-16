@@ -76,7 +76,7 @@ class Bot extends Client {
                 if (clientEvent.customEvent) return clientEvent.run(this);
 
                 if (clientEvent.runOnce) this.once(clientEvent.name, (...args) => clientEvent.run(this, ...args));
-                else this.on(clientEvent.name, (...args) => clientEvent.run(this, ...args));
+                else this.on(clientEvent.name, (...args) => clientEvent.run(this, ...args))
             });
         })
     }

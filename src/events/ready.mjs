@@ -2,7 +2,7 @@ import { version } from 'discord.js';
 import logger from '../utils/logger.mjs';
 export default {
   name: "ready",
-  runOnce: true,
+  runOnce: false,
   run: async (client) => {
 
     client.user.setActivity(client.config.Activity);
